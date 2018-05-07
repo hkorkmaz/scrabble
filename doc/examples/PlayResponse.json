@@ -1,0 +1,32 @@
+{
+    "result": {
+        "success": [
+            {
+                "startX": 12,
+                "startY": 2,
+                "word": "ADAM",
+                "direction": "VERTICAL"
+            }
+        ],
+        "failure": [
+            {
+                "reason": "Invalid position",
+                "move": {
+                    "startX": 10,
+                    "startY": 5,
+                    "word": "ARABA",
+                    "direction": "HORIZONTAL"
+                }
+            },
+            {
+                "reason": "Invalid position",
+                "move": {
+                    "startX": 10,
+                    "startY": 4,
+                    "word": "ASA",
+                    "direction": "HORIZONTAL"
+                }
+            }
+        ]
+    }
+}

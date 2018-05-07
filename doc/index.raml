@@ -1,0 +1,114 @@
+#%RAML 1.0
+title: Scrabble REST Services
+mediaType: application/json
+types:
+  Message:
+    properties:
+      message: string
+  Move:
+    properties:
+      startX: integer
+      startY: integer
+      word: string
+      direction:
+        enum: [HORIZONTAL, VERTICAL]
+  PlayRequest:
+    properties:
+      moves: Move[]
+  PlayResponse:
+    properties:
+      result:
+        properties:
+          success: Move[]
+          failure:
+            type: object
+            properties:
+              reason: string
+              move: Move
+  WordResponse:
+    properties:
+      words: 
+        type: Word[]
+  Word:
+    properties:
+      word: string
+      point: integer
+/board:
+  /create:
+    post:
+      description: Create a new board
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              example: !include examples/BoardOK.json
+  /{boardId}/status:
+    post:
+      description: Change board status by boardId
+      body:
+        application/json:
+          properties:
+            newStatus:
+              type: string
+              enum: ["ACTIVE", "PASSIVE"]
+          example: !include examples/ChangeRequest.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: Message
+              example: !include examples/OK.json
+        400:
+          body:
+            application/json:
+              type: Message
+              example: !include examples/Error.json    
+  /{boardId}/play:
+    post:
+      description: Make move/moves
+      body:
+        application/json:
+          properties:
+            moves:
+              type: PlayRequest
+              example: !include examples/PlayRequest.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: PlayResponse
+              example: !include examples/PlayResponse.json
+        400:
+          body:
+            application/json:
+              type: Message
+              example: !include examples/Error.json 
+  /{boardId}/words:
+    get:
+      description: List of words and their points from board
+      responses:
+        200:
+          body:
+            application/json:
+              type: WordResponse
+              example: !include examples/WordResponse.json
+        400:
+          body:
+            application/json:
+              type: Message
+              example: !include examples/Error.json
+  /{boardId}/print:
+    get:
+      description: Visual representation of a board
+      responses:
+        200:
+          body:
+            text/plain:
+              type: string
+              example: !include examples/Print.txt
+        400:
+          body:
+            text/plain:
+              type: string
+              example: Some error occured
