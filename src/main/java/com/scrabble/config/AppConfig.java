@@ -33,7 +33,7 @@ public class AppConfig {
 	private Environment env;
 
 	@Resource
-    private DataSource dataSource;
+        private DataSource dataSource;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
