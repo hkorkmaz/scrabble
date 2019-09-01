@@ -14,3 +14,8 @@
 ## API
 
 Api documentation is under `doc` folder
+
+## Tech
+- Java 8
+- Spring MVC
+- MySQL
